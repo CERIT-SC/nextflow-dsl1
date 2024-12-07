@@ -362,7 +362,10 @@ class PodSpecBuilder {
             // note: privileged flag needs to be defined in the *container* securityContext
             // not the 'spec' securityContext (see below)
             container.securityContext = [ privileged: true ]
+        } else {
+	    container.securityContext = [ allowPrivilegeEscalation: false, capabilities: [ drop: ['ALL']] ]
         }
+
 
         final spec = [
                 restartPolicy: restart,
